@@ -26,23 +26,5 @@ public abstract class StepDefsSuper {
         return chromeOptions;
     }
 
-//    public static void beforeAll() throws IOException {
-//        service = new ChromeDriverService.Builder()
-//                .usingDriverExecutable(new File(DRIVER_LOCATION))
-//                .usingAnyFreePort()
-//                .build();
-//        service.start();
-//    }
-//
-//    public void setup() {
-//        webDriver = new RemoteWebDriver(service.getUrl(), getChromeOptions());
-//    }
-//
-//    public void afterEach() {
-//        webDriver.quit();
-//    }
-//
-//    public static void afterAll() {
-//        service.stop();
-//    }
+
 }
