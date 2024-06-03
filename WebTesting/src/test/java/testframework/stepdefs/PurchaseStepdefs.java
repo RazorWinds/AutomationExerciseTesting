@@ -18,8 +18,9 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
 public class PurchaseStepdefs extends StepDefsSuper{
-    @Given("I have 1 item in their basket")
+    @Given("I have 1 item in my basket")
     public void iHaveItemInTheirBasket() {
+
     }
 
     @And("I am on the basket page")
