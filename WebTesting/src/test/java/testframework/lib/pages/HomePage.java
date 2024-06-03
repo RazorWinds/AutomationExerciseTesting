@@ -16,5 +16,10 @@ public class HomePage extends BasePage {
         return webDriver.getTitle().equals("Automation Exercise");
     }
 
+    public LoginPage clickLogout(){
+        webDriver.findElement(By.linkText("Logout")).click();
+        return new LoginPage(webDriver);
+    }
+
 
 }

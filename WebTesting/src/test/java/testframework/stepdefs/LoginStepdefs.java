@@ -18,6 +18,7 @@ import testframework.lib.pages.LoginPage;
 import java.io.File;
 import java.io.IOException;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 
 public class LoginStepdefs extends StepDefsSuper{
@@ -50,8 +51,8 @@ public class LoginStepdefs extends StepDefsSuper{
         service.stop();
     }
 
-    @Given("Given: I am on the login signup page of Automation Exercises")
-    public void givenIAmOnTheLoginSignupPageOfAutomationExercises() {
+    @Given("I am on the login signup page of Automation Exercises")
+    public void iAmOnTheLoginSignupPageOfAutomationExercises() {
         webDriver.get("https://automationexercise.com/login");
         loginPage = new LoginPage(webDriver);
 
@@ -85,7 +86,7 @@ public class LoginStepdefs extends StepDefsSuper{
     }
 
     @When("I input incorrect details into the fields")
-    public void iInputIncorrectDetailsIntoTheFields() throws InterruptedException {
+    public void iInputIncorrectDetailsIntoTheFields()  {
         webDriver.findElement(By.className("fc-button-label")).click();
         loginPage.setWorkingEmail("gtb51@microeconomicstextbook.com");
         loginPage.setWorkingPassword("Wrong test");
@@ -93,9 +94,30 @@ public class LoginStepdefs extends StepDefsSuper{
     }
 
     @Then("I will be shown an error message")
-    public void iWillBeShownAnErrorMessage() throws InterruptedException {
+    public void iWillBeShownAnErrorMessage()  {
         MatcherAssert.assertThat(loginPage.checkErrorMsg(), is(true));
     }
 
 
+    @Given("I am logged into Automation Exercises")
+    public void iAmLoggedIntoAutomationExercises() {
+        webDriver.get("https://automationexercise.com/login");
+        loginPage = new LoginPage(webDriver);
+        webDriver.findElement(By.className("fc-button-label")).click();
+        loginPage.setWorkingEmail("gtb51@microeconomicstextbook.com");
+        loginPage.setWorkingPassword("test");
+        loginPage.enterLoginDetails();
+        homePage = new HomePage(loginPage.clickLogin());
+    }
+
+    @When("I press the log out button")
+    public void iPressTheLogOutButton() throws InterruptedException {
+        Thread.sleep(5000);
+        loginPage = homePage.clickLogout();
+    }
+
+    @Then("I will be logged out")
+    public void iWillBeLoggedOut() {
+        MatcherAssert.assertThat(webDriver.getCurrentUrl(), containsString("login"));
+    }
 }
