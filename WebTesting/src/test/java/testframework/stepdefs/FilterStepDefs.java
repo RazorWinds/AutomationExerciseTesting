@@ -18,6 +18,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class FilterStepDefs extends StepDefsSuper{
+    HomePage homePage;
+
     @BeforeAll
     public static void beforeAll() throws IOException {
         service = new ChromeDriverService.Builder()
@@ -42,11 +44,11 @@ public class FilterStepDefs extends StepDefsSuper{
         service.stop();
     }
 
-    @Given("I am on the home page")
-    public void iAmOnTheHomePage(){
-        webDriver.get("https://automationexercise.com/");
-        HomePage homePage = new HomePage(webDriver);
-    }
+//    @Given("I am on the home page")
+//    public void iAmOnTheHomePage(){
+//        webDriver.get("https://automationexercise.com/");
+//        homePage = new HomePage(webDriver);
+//    }
 
     @When("I click the WOMEN option in the categories menu")
     public void iClickTheWOMENOptionInTheCategoriesMenu() {
