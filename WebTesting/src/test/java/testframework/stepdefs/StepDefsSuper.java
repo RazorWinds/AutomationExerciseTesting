@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import testframework.lib.pages.BasePage;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,27 +26,23 @@ public abstract class StepDefsSuper {
         return chromeOptions;
     }
 
-//    @BeforeAll
-//    public static void beforeAll() throws IOException {
-//        service = new ChromeDriverService.Builder()
-//                .usingDriverExecutable(new File(DRIVER_LOCATION))
-//                .usingAnyFreePort()
-//                .build();
-//        service.start();
-//    }
-//
-//    @Before
-//    public void setup() {
-//        webDriver = new RemoteWebDriver(service.getUrl(), getChromeOptions());
-//    }
-//
-//    @After
-//    public void afterEach() {
-//        webDriver.quit();
-//    }
-//
-//    @AfterAll
-//    public static void afterAll() {
-//        service.stop();
-//    }
+    public static void beforeAll() throws IOException {
+        service = new ChromeDriverService.Builder()
+                .usingDriverExecutable(new File(DRIVER_LOCATION))
+                .usingAnyFreePort()
+                .build();
+        service.start();
+    }
+
+    public void setup() {
+        webDriver = new RemoteWebDriver(service.getUrl(), getChromeOptions());
+    }
+
+    public void afterEach() {
+        webDriver.quit();
+    }
+    
+    public static void afterAll() {
+        service.stop();
+    }
 }
