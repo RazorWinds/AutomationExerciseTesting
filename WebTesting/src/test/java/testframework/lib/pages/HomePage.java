@@ -7,9 +7,6 @@ import org.openqa.selenium.WebElement;
 
 public class HomePage extends BasePage {
 
-    private final By pastLink = new By.ByLinkText("past");
-    private final By searchField = new By.ByName("q");
-
     public HomePage(WebDriver webDriver) {
         super(webDriver);
     }
