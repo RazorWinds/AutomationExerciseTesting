@@ -20,7 +20,7 @@ public abstract class StepDefsSuper {
 
     public static ChromeOptions getChromeOptions() {
         ChromeOptions chromeOptions = new ChromeOptions();
-        //chromeOptions.addArguments("headless");
+        chromeOptions.addArguments("headless");
         chromeOptions.addArguments("--start-maximized");
         chromeOptions.addArguments("--remote-allow-origins=*");
         return chromeOptions;
