@@ -12,5 +12,8 @@ public class ProductsPage extends BasePage{
         return webDriver.getTitle().equals("Automation Exercise - All Products");
     }
 
+    public void addOneItemToCart(){
+
+    }
 
 }
