@@ -25,6 +25,7 @@ public class LoginStepdefs extends StepDefsSuper{
     LoginPage loginPage;
     HomePage homePage;
 
+
     @BeforeAll
     public static void beforeAll() throws IOException {
         service = new ChromeDriverService.Builder()
@@ -63,20 +64,37 @@ public class LoginStepdefs extends StepDefsSuper{
     }
 
     @When("I input my details into the fields")
-    public void iInputMyDetailsIntoTheFields() throws InterruptedException {
+    public void iInputMyDetailsIntoTheFields() {
         webDriver.findElement(By.className("fc-button-label")).click();
         loginPage.enterLoginDetails();
-        Thread.sleep(5000);
+
     }
 
     @And("I press the login button")
     public void iPressTheLoginButton() {
-        homePage = loginPage.clickLogin();
+        try{
+            homePage = new HomePage(loginPage.clickLogin());
+        }catch (Exception e){
+
+        }
     }
 
     @Then("I will be logged in")
     public void iWillBeLoggedIn() {
         MatcherAssert.assertThat(homePage.getTitle(), is("Automation Exercise"));
+    }
+
+    @When("I input incorrect details into the fields")
+    public void iInputIncorrectDetailsIntoTheFields() throws InterruptedException {
+        webDriver.findElement(By.className("fc-button-label")).click();
+        loginPage.setWorkingEmail("gtb51@microeconomicstextbook.com");
+        loginPage.setWorkingPassword("Wrong test");
+        loginPage.enterLoginDetails();
+    }
+
+    @Then("I will be shown an error message")
+    public void iWillBeShownAnErrorMessage() throws InterruptedException {
+        MatcherAssert.assertThat(loginPage.checkErrorMsg(), is(true));
     }
 
 

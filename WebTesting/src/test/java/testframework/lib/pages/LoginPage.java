@@ -29,10 +29,12 @@ public class LoginPage extends BasePage{
         webDriver.findElement(loginPasswordField).sendKeys(workingPassword);
     }
 
-    public HomePage clickLogin(){
+    public WebDriver clickLogin(){
         webDriver.findElement(loginButton).click();
-        return new HomePage(webDriver);
+        return (webDriver);
     }
+
+
 
     public void setWorkingEmail(String workingEmail) {
         this.workingEmail = workingEmail;
@@ -40,5 +42,9 @@ public class LoginPage extends BasePage{
 
     public void setWorkingPassword(String workingPassword) {
         this.workingPassword = workingPassword;
+    }
+
+    public boolean checkErrorMsg(){
+        return webDriver.findElement(loginErrorMsg).getText().equals("Your email or password is incorrect!");
     }
 }
