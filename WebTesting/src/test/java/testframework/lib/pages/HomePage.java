@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class HomePage extends BasePage {
+    private By cartLink = new By.ByLinkText("Cart");
+    private By contactLink = new By.ByLinkText("Contact us");
 
     public HomePage(WebDriver webDriver) {
         super(webDriver);
@@ -18,20 +20,20 @@ public class HomePage extends BasePage {
         return webDriver.getTitle().equals("Automation Exercise");
     }
 
-    public ProductsPage clickOnWomenCategory() {
-        webDriver.findElement(By.cssSelector(".panel:nth-child(1)")).click();
-        WebElement itemCategoryLink = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#Women li:nth-child(1)")));
+    public ProductsPage clickOnCategory(String catName, String itemCat) {
+        webDriver.findElement(By.linkText(catName)).click();
+        WebElement itemCategoryLink = wait.until(ExpectedConditions.elementToBeClickable(By.linkText(itemCat)));
         itemCategoryLink.click();
         return new ProductsPage(webDriver);
     }
 
-//    public ProductsPage clickOnCategory(String catName) {
-//        webDriver.findElement(By.xpath("//a[text()='" + catName + "']")).click();
-//        return new ProductsPage(webDriver);
-//    }
-//
-//    public ProductsPage clickOnCategoryItem(String itemCat) {
-//        webDriver.findElement(By.xpath("//a[text()='" + itemCat + "']")).click();
-//        return new ProductsPage(webDriver);
-//    }
+    public CartPage viewCart() {
+        webDriver.findElement(cartLink).click();
+        return new CartPage(webDriver);
+    }
+
+    public ContactPage viewContactPage() {
+        webDriver.findElement(contactLink).click();
+        return new ContactPage(webDriver);
+    }
 }

@@ -11,7 +11,7 @@ public class ProductsPage extends BasePage{
 
     @Override
     protected boolean isCorrectPage() {
-        return webDriver.getTitle().equals("Automation Exercise - All Products");
+        return webDriver.getTitle().contains("Products");
     }
 
     public String getHeading() {
