@@ -38,7 +38,7 @@ public class ProductDetailsStepdefs  extends StepDefsSuper{
 
 
     @And("I click the add to cart button")
-    public void iClickTheAddToCartButton() throws InterruptedException {
+    public void iClickTheAddToCartButton() {
         detailsPage.pressAddToCart();
 
     }
