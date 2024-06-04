@@ -29,7 +29,7 @@ public class NavigationStepDefs extends StepDefsSuper{
     public void iMOnTheHomePage() {
         webDriver.get("https://automationexercise.com/");
         homePage = new HomePage(webDriver);
-        homePage.handleConsentPopup();
+//        homePage.handleConsentPopup();
     }
 
     @When("I click on a product category {string} link, and then the {string} link in the navigation menu")
@@ -85,7 +85,7 @@ public class NavigationStepDefs extends StepDefsSuper{
     public void iAmOnAnyPageOfTheWebsite() {
         webDriver.get("https://automationexercise.com/products");
         productPage = new ProductsPage(webDriver);
-        productPage.handleConsentPopup();
+//        productPage.handleConsentPopup();
     }
 
     @When("^I click on the \"Home\" link in the navigation menu")
