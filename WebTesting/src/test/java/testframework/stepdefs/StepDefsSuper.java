@@ -26,7 +26,7 @@ public abstract class StepDefsSuper {
         chromeOptions.addArguments("headless");
         chromeOptions.addArguments("--start-maximized");
         chromeOptions.addArguments("--remote-allow-origins=*");
-        chromeOptions.addExtensions (new File("src/test/resources/AdBlock.crx"));
+        //chromeOptions.addExtensions (new File("src/test/resources/AdBlock.crx"));
         return chromeOptions;
     }
 }
