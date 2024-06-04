@@ -39,12 +39,5 @@ public String getTitle() {
     return webDriver.getTitle();
 }
 
-    public void handleConsentPopup() {
-        WebElement consentBtn = webDriver.findElement(By.className("fc-button-label"));
-        if (consentBtn.isDisplayed()) {
-            consentBtn.click();
-        }
-    }
-
     protected abstract boolean isCorrectPage();
 }
