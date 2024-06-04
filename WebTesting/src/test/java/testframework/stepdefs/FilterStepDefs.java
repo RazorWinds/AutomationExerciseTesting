@@ -24,7 +24,6 @@ import java.util.List;
 
 public class FilterStepDefs extends StepDefsSuper{
     HomePage homePage;
-    WebDriverWait webDriverWait;
 
     @Given("I am on the home page")
     public void iAmOnTheHomePage(){
@@ -48,7 +47,6 @@ public class FilterStepDefs extends StepDefsSuper{
 
     @Then("I should be taken to the page for Women's dresses")
     public void iShouldBeTakenToThePageForWomenSDresses() {
-        webDriverWait.until(driver -> driver.getCurrentUrl().contains("products"));
         Assertions.assertEquals("Automation Exercise - Dress Products",webDriver.getTitle());
     }
 
