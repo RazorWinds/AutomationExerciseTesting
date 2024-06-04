@@ -26,10 +26,6 @@ public class FilterStepDefs extends StepDefsSuper{
     HomePage homePage;
     WebDriverWait webDriverWait;
 
-
-
-
-
     @Given("I am on the home page")
     public void iAmOnTheHomePage(){
         webDriver.get("https://automationexercise.com/");
