@@ -29,4 +29,11 @@ public class ProductDetailsStepdefs  extends StepDefsSuper{
     public void iAmTakenToTheDetailsPage() {
         MatcherAssert.assertThat(webDriver.getCurrentUrl(), is("https://automationexercise.com/product_details/1"));
     }
+
+    @Then("I see the item image, name, availability, condition, brand, and price.")
+    public void iSeeTheItemImageNameAvailabilityConditionBrandAndPrice() {
+        MatcherAssert.assertThat(detailsPage.detailsExist(), is(true));
+    }
+
+
 }
