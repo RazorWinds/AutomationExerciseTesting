@@ -10,7 +10,9 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.Is;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import testframework.lib.pages.ContactPage;
@@ -18,6 +20,8 @@ import testframework.lib.pages.HomePage;
 
 import java.io.File;
 import java.io.IOException;
+
+import static org.hamcrest.Matchers.containsString;
 
 public class ContactPageStepdefs extends StepDefsSuper{
     private HomePage homePage;
@@ -70,13 +74,29 @@ public class ContactPageStepdefs extends StepDefsSuper{
         contactPage.enterMessage(message);
     }
 
-    @And("click the Submit button")
+    @And("I click the Submit button")
     public void clickTheButton() {
         contactPage.submit();
     }
 
     @Then("a confirmation message should be displayed indicating that the message has been sent")
     public void aConfirmationMessageShouldBeDisplayedIndicatingThatTheMessageHasBeenSent() {
-        MatcherAssert.assertThat(contactPage.messageSuccess(), Is.is("Success! Your details have been submitted successfully."));
+        WebElement successMessage = webDriver.findElement(By.cssSelector(".status"));
+        MatcherAssert.assertThat(successMessage.getText(), Is.is("Success! Your details have been submitted successfully."));
+    }
+
+    @When("I click the Submit button but the fields are empty")
+    public void iClickTheSubmitButtonButTheFieldsAreEmpty() {
+        contactPage.submit();
+    }
+
+    @Then("an error should appear telling the user to fill in the fields")
+    public void anErrorShouldAppearTellingTheUserToFillInTheFields() {
+        MatcherAssert.assertThat(contactPage.errorPopUp(), containsString("Please fill in this field"));
+    }
+
+    @And("the form should not be submitted.")
+    public void theFormShouldNotBeSubmitted() {
+        Assertions.assertFalse(contactPage.messageSuccess());
     }
 }

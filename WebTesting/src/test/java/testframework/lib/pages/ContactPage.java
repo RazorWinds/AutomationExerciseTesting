@@ -5,6 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.Objects;
+
 public class ContactPage extends BasePage{
 
     public ContactPage(WebDriver webDriver) {
@@ -42,13 +44,18 @@ public class ContactPage extends BasePage{
         handleConfirmAlert();
     }
 
-    public String messageSuccess() {
+    public boolean messageSuccess() {
         WebElement successMessage = webDriver.findElement(By.cssSelector(".status"));
-        return successMessage.getText();
+        return Objects.equals(successMessage.getText(), "Success! Your details have been submitted successfully.");
     }
 
     public void handleConfirmAlert() {
         Alert alert = webDriver.switchTo().alert();
         alert.accept();
+    }
+
+    public String errorPopUp() {
+        Alert alert = webDriver.switchTo().alert();
+        return alert.getText();
     }
 }
