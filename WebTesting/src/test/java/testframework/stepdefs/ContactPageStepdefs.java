@@ -28,34 +28,6 @@ public class ContactPageStepdefs extends StepDefsSuper{
     private HomePage homePage;
     private ContactPage contactPage;
 
-    @BeforeAll
-    public static void beforeAll() throws IOException {
-        service = new ChromeDriverService.Builder()
-                .usingDriverExecutable(new File(DRIVER_LOCATION))
-                .usingAnyFreePort()
-                .build();
-        service.start();
-    }
-
-    @Before
-    public void setup() {
-        webDriver = new RemoteWebDriver(service.getUrl(), getChromeOptions());
-    }
-    public void closePopups(){
-        if (webDriver.getCurrentUrl().contains("google"))
-            webDriver.findElement(By.id("dismiss-button")).click();
-    }
-
-    @After
-    public void afterEach() {
-        webDriver.quit();
-    }
-
-    @AfterAll
-    public static void afterAll() {
-        service.stop();
-    }
-
     @Given("I am on the Contact us page")
     public void iAmOnTheContactUsPage() {
         webDriver.get("https://automationexercise.com/contact_us");
