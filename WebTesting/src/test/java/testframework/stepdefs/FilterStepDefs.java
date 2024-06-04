@@ -26,7 +26,6 @@ public class FilterStepDefs extends StepDefsSuper{
     HomePage homePage;
     WebDriverWait webDriverWait;
 
-
     @BeforeStep
     public void closePopups(){
         //consent to cookies
@@ -50,8 +49,6 @@ public class FilterStepDefs extends StepDefsSuper{
 //            }
 //        }
     }
-
-
 
     @Given("I am on the home page")
     public void iAmOnTheHomePage(){
