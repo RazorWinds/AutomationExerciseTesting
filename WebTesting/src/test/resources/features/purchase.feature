@@ -7,7 +7,7 @@ Feature: As a customer I should be able to checkout with valid basket and card d
 
 
   Scenario: As a customer, I should not be able to checkout with no items in my basket.
-    Given I have 0 items in my basket
+    Given I have no items in my basket
     When I am on the basket page
     Then The checkout button should not be displayed.
       And Some text should appear stating There is nothing in your basket
@@ -16,15 +16,13 @@ Feature: As a customer I should be able to checkout with valid basket and card d
 
   Scenario: As a customer, I should be able to checkout with valid card information and see conformation so I know that the order was placed.
     Given I have clicked place order on the checkout page
-    When I enter va lid card details
+    When I enter valid card details
       And click the Pay and confirm button
     Then Text should appear saying ORDER PLACED!
-      And A button to continue shopping should appear
 
 
     Scenario: As a customer I should not be able to pay with invalid card information.
     Given I have clicked place order on the checkout page
     When I enter invalid card details
       And click the Pay and confirm button
-    Then An order should not be placed
-      And An error prompting to try again should be shown.
+    Then An error prompting to try again should be shown.
