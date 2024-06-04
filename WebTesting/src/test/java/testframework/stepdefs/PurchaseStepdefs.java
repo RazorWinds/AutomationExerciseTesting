@@ -25,12 +25,11 @@ import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
 
-
-public class PurchaseStepdefs extends StepDefsSuper{
+public class PurchaseStepdefs extends StepDefsSuper {
 
     private ProductsPage productsPage;
 
-    @Given("I have 1 item in my basket")
+    @And("I have 1 item in my basket")
     public void iHaveItemInMyBasket() throws InterruptedException {
         webDriver.get(basketURL);
         BasketPage basketPage = new BasketPage(webDriver);
@@ -55,8 +54,6 @@ public class PurchaseStepdefs extends StepDefsSuper{
     public void iShouldBeRedirectedToTheCheckoutPageWhereICanSeeProductDetails() {
 //        assertThat(webDriver.findElement(By.cssSelector(".step-one:nth-child(4) > .heading")).getText(), is("Review Your Order"));
     }
-
-
 
 
     @Given("I have no items in my basket")
@@ -110,7 +107,6 @@ public class PurchaseStepdefs extends StepDefsSuper{
     }
 
 
-
     @When("I enter invalid card details")
     public void iEnterInvalidCardDetails() {
         CardDetailsPage cardDetailsPage = new CardDetailsPage(webDriver);
@@ -125,29 +121,5 @@ public class PurchaseStepdefs extends StepDefsSuper{
     @And("An error prompting to try again should be shown.")
     public void anErrorPromptingToTryAgainShouldBeShown() {
         assertThat(webDriver.findElement(By.cssSelector("b:nth-child(1)")).getText(), is("Invalid details try again"));
-    }
-
-    @BeforeAll
-    public static void beforeAll() throws IOException {
-        service = new ChromeDriverService.Builder()
-                .usingDriverExecutable(new File(DRIVER_LOCATION))
-                .usingAnyFreePort()
-                .build();
-        service.start();
-    }
-
-    @Before
-    public void setup() {
-        webDriver = new RemoteWebDriver(service.getUrl(), getChromeOptions());
-    }
-
-    @After
-    public void afterEach() {
-        webDriver.quit();
-    }
-
-    @AfterAll
-    public static void afterAll() {
-        service.stop();
     }
 }

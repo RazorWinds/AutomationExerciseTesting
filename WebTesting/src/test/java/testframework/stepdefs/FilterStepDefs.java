@@ -26,20 +26,6 @@ public class FilterStepDefs extends StepDefsSuper{
     HomePage homePage;
     WebDriverWait webDriverWait;
 
-    @BeforeAll
-    public static void beforeAll() throws IOException {
-        service = new ChromeDriverService.Builder()
-                .usingDriverExecutable(new File(DRIVER_LOCATION))
-                .usingAnyFreePort()
-                .build();
-        service.start();
-    }
-
-    @Before
-    public void setup() {
-        webDriver = new RemoteWebDriver(service.getUrl(), getChromeOptions());
-        webDriverWait = new WebDriverWait(webDriver,Duration.ofSeconds(10));
-    }
 
     @BeforeStep
     public void closePopups(){
@@ -65,15 +51,7 @@ public class FilterStepDefs extends StepDefsSuper{
 //        }
     }
 
-    @After
-    public void afterEach() {
-        webDriver.quit();
-    }
 
-    @AfterAll
-    public static void afterAll() {
-        service.stop();
-    }
 
     @Given("I am on the home page")
     public void iAmOnTheHomePage(){
