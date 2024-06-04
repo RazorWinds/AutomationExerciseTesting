@@ -1,55 +1,35 @@
 package testframework.stepdefs;
 
-import io.cucumber.java.After;
-import io.cucumber.java.AfterAll;
-import io.cucumber.java.Before;
-import io.cucumber.java.BeforeAll;
+import io.cucumber.java.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.java.it.Ma;
 import org.hamcrest.MatcherAssert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import testframework.lib.pages.HomePage;
 import testframework.lib.pages.LoginPage;
+import testframework.lib.pages.SignUpPage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
 public class LoginStepdefs extends StepDefsSuper{
 
     LoginPage loginPage;
     HomePage homePage;
+    SignUpPage signUpPage;
 
 
-    @BeforeAll
-    public static void beforeAll() throws IOException {
-        service = new ChromeDriverService.Builder()
-                .usingDriverExecutable(new File(DRIVER_LOCATION))
-                .usingAnyFreePort()
-                .build();
-        service.start();
-    }
 
-    @Before
-    public void setup() {
-        webDriver = new RemoteWebDriver(service.getUrl(), getChromeOptions());
-    }
-
-    @After
-    public void afterEach() {
-        webDriver.quit();
-    }
-
-    @AfterAll
-    public static void afterAll() {
-        service.stop();
-    }
 
     @Given("I am on the login signup page of Automation Exercises")
     public void iAmOnTheLoginSignupPageOfAutomationExercises() {
@@ -66,7 +46,7 @@ public class LoginStepdefs extends StepDefsSuper{
 
     @When("I input my details into the fields")
     public void iInputMyDetailsIntoTheFields() {
-        webDriver.findElement(By.className("fc-button-label")).click();
+
         loginPage.enterLoginDetails();
 
     }
@@ -87,7 +67,7 @@ public class LoginStepdefs extends StepDefsSuper{
 
     @When("I input incorrect details into the fields")
     public void iInputIncorrectDetailsIntoTheFields()  {
-        webDriver.findElement(By.className("fc-button-label")).click();
+
         loginPage.setWorkingEmail("gtb51@microeconomicstextbook.com");
         loginPage.setWorkingPassword("Wrong test");
         loginPage.enterLoginDetails();
@@ -103,7 +83,6 @@ public class LoginStepdefs extends StepDefsSuper{
     public void iAmLoggedIntoAutomationExercises() {
         webDriver.get("https://automationexercise.com/login");
         loginPage = new LoginPage(webDriver);
-        webDriver.findElement(By.className("fc-button-label")).click();
         loginPage.setWorkingEmail("gtb51@microeconomicstextbook.com");
         loginPage.setWorkingPassword("test");
         loginPage.enterLoginDetails();
@@ -111,13 +90,85 @@ public class LoginStepdefs extends StepDefsSuper{
     }
 
     @When("I press the log out button")
-    public void iPressTheLogOutButton() throws InterruptedException {
-        Thread.sleep(5000);
+    public void iPressTheLogOutButton() {
+
         loginPage = homePage.clickLogout();
     }
 
     @Then("I will be logged out")
     public void iWillBeLoggedOut() {
         MatcherAssert.assertThat(webDriver.getCurrentUrl(), containsString("login"));
+    }
+
+    @When("I Input my name and email and press signup")
+    public void iInputMyNameAndEmailAndPressSignup() {
+        loginPage.setWorkingName("Conner");
+        loginPage.setWorkingEmail("qtb51@microeconomicstextbook.com");
+        signUpPage = new SignUpPage(loginPage.enterSignUpDetails()) ;
+
+    }
+
+    @And("I input my address on the signup page")
+    public void iInputMyAddressOnTheSignupPage() {
+        signUpPage.setPassword("Test");
+        signUpPage.setFirstName("Conner");
+        signUpPage.setLastName("Sparta");
+        signUpPage.setAddress("24 main street");
+        signUpPage.setState("Northamptonshire");
+        signUpPage.setCity("Northampton");
+        signUpPage.setZipCode("NN5 3TR");
+        signUpPage.setMobileNumber("01604208164");
+        signUpPage.enterDetails();
+
+    }
+
+    @And("I press create account")
+    public void iPressCreateAccount() {
+        signUpPage.submitDetails();
+    }
+
+    @Then("My account will be created")
+    public void myAccountWillBeCreated() {
+        MatcherAssert.assertThat(webDriver.getCurrentUrl(), containsString("account_created"));
+    }
+
+
+    @When("I Input my name and an invalid email and press signup")
+    public void iInputMyNameAndAnInvalidEmailAndPressSignup() {
+        loginPage.setWorkingName("Conner");
+        loginPage.setWorkingEmail("qtb51.microeconomicstextbook.com");
+        loginPage.enterSignUpDetails();
+
+    }
+
+    @Then("I will be given an error message stating invalid email")
+    public void iWillBeGivenAnErrorMessageStatingInvalidEmail() {
+        MatcherAssert.assertThat(webDriver.getCurrentUrl(), is(not("https://automationexercise.com/signup")));
+    }
+
+    @And("I input an invalid address on the signup page")
+    public void iInputAnInvalidAddressOnTheSignupPage() {
+        signUpPage.setPassword("Test");
+        signUpPage.setFirstName("as");
+        signUpPage.setLastName("sa");
+        signUpPage.setAddress("as");
+        signUpPage.setState("sa");
+        signUpPage.setCity("as");
+        signUpPage.setZipCode("sa");
+        signUpPage.setMobileNumber("sa");
+        signUpPage.enterDetails();
+        signUpPage.submitDetails();
+    }
+
+    @Then("I will be given an error message stating invalid field")
+    public void iWillBeGivenAnErrorMessageStatingInvalidField() {
+        MatcherAssert.assertThat(webDriver.getCurrentUrl(), is("https://automationexercise.com/signup"));
+    }
+
+    @When("I Input my name and email and press sign up")
+    public void iInputMyNameAndEmailAndPressSignUp() {
+        loginPage.setWorkingName("Conner");
+        loginPage.setWorkingEmail("qtb52@microeconomicstextbook.com");
+        signUpPage = new SignUpPage(loginPage.enterSignUpDetails()) ;
     }
 }
