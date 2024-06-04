@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
@@ -23,6 +24,11 @@ public class CheckoutPage extends BasePage{
     }
 
     public  void placeOrder(){
-        webDriver.findElement(By.linkText("Place Order")).click();
+        WebElement element = webDriver.findElement(By.linkText("Place Order"));
+
+        Actions builder = new Actions(webDriver);
+        builder.scrollByAmount(0,1000).build().perform();
+        wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Place Order")));
+        element.click();
     }
 }

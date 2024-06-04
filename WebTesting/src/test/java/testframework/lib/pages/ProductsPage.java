@@ -1,13 +1,13 @@
 package testframework.lib.pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.WebElement;
 
 public class ProductsPage extends BasePage {
+    private By firstProduct = By.linkText("View Product");
+
     public ProductsPage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -38,5 +38,11 @@ public class ProductsPage extends BasePage {
     public String getHeading() {
         WebElement headingElement = webDriver.findElement(By.cssSelector(".title"));
         return headingElement.getText();
+    }
+
+    public void search(String searchTerm){
+        WebElement searchField = webDriver.findElement(By.name("search"));
+        searchField.sendKeys(searchTerm);
+        webDriver.findElement(By.id("submit_search")).click();
     }
 }

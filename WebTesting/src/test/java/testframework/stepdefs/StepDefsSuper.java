@@ -18,7 +18,7 @@ public abstract class StepDefsSuper {
     protected static final String DRIVER_LOCATION = "src/test/resources/chromedriver";
     protected static WebDriver webDriver;
 
-    protected static final String basketURL = "https://automationexercise.com/view_cart";
+    protected static final String cartURL = "https://automationexercise.com/view_cart";
     protected static final String productsURL = "https://automationexercise.com/products";
 
     public static ChromeOptions getChromeOptions() {
@@ -26,6 +26,7 @@ public abstract class StepDefsSuper {
         chromeOptions.addArguments("headless");
         chromeOptions.addArguments("--start-maximized");
         chromeOptions.addArguments("--remote-allow-origins=*");
+        chromeOptions.addExtensions (new File("src/test/resources/AdBlock.crx"));
         return chromeOptions;
     }
 }
