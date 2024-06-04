@@ -30,12 +30,12 @@ public class LoginPage extends BasePage{
         webDriver.findElement(loginPasswordField).sendKeys(workingPassword);
     }
 
-    public SignUpPage enterSignUpDetails(){
+    public WebDriver enterSignUpDetails(){
         webDriver.findElement(registerEmailAddressField).sendKeys(workingEmail);
         webDriver.findElement(registerNameField).sendKeys(workingName);
         webDriver.findElement(registerButton).click();
 
-        return new SignUpPage(webDriver);
+        return (webDriver);
     }
 
     public WebDriver clickLogin(){
