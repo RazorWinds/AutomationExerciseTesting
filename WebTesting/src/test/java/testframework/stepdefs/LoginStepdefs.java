@@ -5,6 +5,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.java.it.Ma;
 import org.hamcrest.MatcherAssert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -19,8 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
 public class LoginStepdefs extends StepDefsSuper{
 
@@ -141,7 +141,7 @@ public class LoginStepdefs extends StepDefsSuper{
     public void iInputMyNameAndEmailAndPressSignup() {
         loginPage.setWorkingName("Conner");
         loginPage.setWorkingEmail("qtb51@microeconomicstextbook.com");
-        signUpPage = loginPage.enterSignUpDetails();
+        signUpPage = new SignUpPage(loginPage.enterSignUpDetails()) ;
 
     }
 
@@ -170,4 +170,42 @@ public class LoginStepdefs extends StepDefsSuper{
     }
 
 
+    @When("I Input my name and an invalid email and press signup")
+    public void iInputMyNameAndAnInvalidEmailAndPressSignup() {
+        loginPage.setWorkingName("Conner");
+        loginPage.setWorkingEmail("qtb51.microeconomicstextbook.com");
+        loginPage.enterSignUpDetails();
+
+    }
+
+    @Then("I will be given an error message stating invalid email")
+    public void iWillBeGivenAnErrorMessageStatingInvalidEmail() {
+        MatcherAssert.assertThat(webDriver.getCurrentUrl(), is(not("https://automationexercise.com/signup")));
+    }
+
+    @And("I input an invalid address on the signup page")
+    public void iInputAnInvalidAddressOnTheSignupPage() {
+        signUpPage.setPassword("Test");
+        signUpPage.setFirstName("as");
+        signUpPage.setLastName("sa");
+        signUpPage.setAddress("as");
+        signUpPage.setState("sa");
+        signUpPage.setCity("as");
+        signUpPage.setZipCode("sa");
+        signUpPage.setMobileNumber("sa");
+        signUpPage.enterDetails();
+        signUpPage.submitDetails();
+    }
+
+    @Then("I will be given an error message stating invalid field")
+    public void iWillBeGivenAnErrorMessageStatingInvalidField() {
+        MatcherAssert.assertThat(webDriver.getCurrentUrl(), is("https://automationexercise.com/signup"));
+    }
+
+    @When("I Input my name and email and press sign up")
+    public void iInputMyNameAndEmailAndPressSignUp() {
+        loginPage.setWorkingName("Conner");
+        loginPage.setWorkingEmail("qtb52@microeconomicstextbook.com");
+        signUpPage = new SignUpPage(loginPage.enterSignUpDetails()) ;
+    }
 }
