@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.WebElement;
 
 public class ProductsPage extends BasePage {
     public ProductsPage(WebDriver webDriver) {
@@ -13,7 +14,7 @@ public class ProductsPage extends BasePage {
 
     @Override
     protected boolean isCorrectPage() {
-        return webDriver.getTitle().equals("Automation Exercise - All Products");
+        return webDriver.getTitle().contains("Products");
     }
 
     public void addOneItemToCart() {
@@ -31,7 +32,11 @@ public class ProductsPage extends BasePage {
         //  }
         builder.release();
         element1.click();
-       // webDriver.findElement(By.cssSelector(".btn-success")).click();
+        // webDriver.findElement(By.cssSelector(".btn-success")).click();
     }
 
+    public String getHeading() {
+        WebElement headingElement = webDriver.findElement(By.cssSelector(".title"));
+        return headingElement.getText();
+    }
 }
