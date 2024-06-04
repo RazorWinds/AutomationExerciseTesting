@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.WebElement;
 
 public class ProductsPage extends BasePage {
+    private By firstProduct = By.linkText("View Product");
+
     public ProductsPage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -38,5 +40,10 @@ public class ProductsPage extends BasePage {
     public String getHeading() {
         WebElement headingElement = webDriver.findElement(By.cssSelector(".title"));
         return headingElement.getText();
+    }
+
+    public WebDriver clickProduct(){
+        webDriver.findElement(firstProduct).click();
+        return webDriver;
     }
 }
