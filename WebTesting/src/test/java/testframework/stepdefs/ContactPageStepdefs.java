@@ -11,6 +11,7 @@ import io.cucumber.java.en.When;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriverService;
@@ -21,7 +22,7 @@ import testframework.lib.pages.HomePage;
 import java.io.File;
 import java.io.IOException;
 
-import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.*;
 
 public class ContactPageStepdefs extends StepDefsSuper{
     private HomePage homePage;
@@ -59,7 +60,7 @@ public class ContactPageStepdefs extends StepDefsSuper{
     public void iAmOnTheContactUsPage() {
         webDriver.get("https://automationexercise.com/contact_us");
         contactPage = new ContactPage(webDriver);
-        contactPage.handleConsentPopup();
+//        contactPage.handleConsentPopup();
     }
 
     @When("I fill out the contact form with valid information \\(name, email, subject, message)")
@@ -82,7 +83,7 @@ public class ContactPageStepdefs extends StepDefsSuper{
     @Then("a confirmation message should be displayed indicating that the message has been sent")
     public void aConfirmationMessageShouldBeDisplayedIndicatingThatTheMessageHasBeenSent() {
         WebElement successMessage = webDriver.findElement(By.cssSelector(".status"));
-        MatcherAssert.assertThat(successMessage.getText(), Is.is("Success! Your details have been submitted successfully."));
+        MatcherAssert.assertThat(contactPage.messageSuccess(), Is.is("Success! Your details have been submitted successfully."));
     }
 
     @When("I click the Submit button but the fields are empty")
@@ -92,11 +93,28 @@ public class ContactPageStepdefs extends StepDefsSuper{
 
     @Then("an error should appear telling the user to fill in the fields")
     public void anErrorShouldAppearTellingTheUserToFillInTheFields() {
-        MatcherAssert.assertThat(contactPage.errorPopUp(), containsString("Please fill in this field"));
+        MatcherAssert.assertThat(contactPage.getEmailFieldValidationMessage(), containsString("Please fill out this field"));
+        MatcherAssert.assertThat(contactPage.getNameFieldValidationMessage(), containsString("Please fill out this field"));
+        MatcherAssert.assertThat(contactPage.getMessageFieldValidationMessage(), containsString("Please fill out this field"));
     }
 
     @And("the form should not be submitted.")
     public void theFormShouldNotBeSubmitted() {
-        Assertions.assertFalse(contactPage.messageSuccess());
+        MatcherAssert.assertThat(contactPage.messageSuccess(), is(not("Success! Your details have been submitted successfully.")));
     }
+
+    @When("the email they have entered is invalid \\(ie: FakeEmail.com)")
+    public void theEmailTheyHaveEnteredIsInvalidIeFakeEmailCom() {
+        String email = "FakeEmail.com";
+        contactPage.enterEmail(email);
+    }
+
+    @Then("an error should appear telling the user what is missing from the email")
+    public void anErrorShouldAppearTellingTheUserWhatIsMissingFromTheEmail() {
+        boolean email = contactPage.emailValidation("FakeEmail.com");
+        if (!email) {
+            MatcherAssert.assertThat(contactPage.getEmailFieldValidationMessage(), containsString("Please include an '@' in the email address"));
+        }
+    }
+
 }

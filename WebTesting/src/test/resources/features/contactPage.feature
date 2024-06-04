@@ -10,3 +10,10 @@ Feature: Contact Page
     When I click the Submit button but the fields are empty
     Then an error should appear telling the user to fill in the fields
     And the form should not be submitted.
+
+  Scenario: As a customer, I should be told if my email is invalid so that I can fix it if needed.
+    Given I am on the Contact us page
+    When the email they have entered is invalid (ie: FakeEmail.com)
+    And I click the Submit button
+    Then an error should appear telling the user what is missing from the email
+    And the form should not be submitted.
