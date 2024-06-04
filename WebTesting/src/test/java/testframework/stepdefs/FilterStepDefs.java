@@ -44,11 +44,11 @@ public class FilterStepDefs extends StepDefsSuper{
         service.stop();
     }
 
-//    @Given("I am on the home page")
-//    public void iAmOnTheHomePage(){
-//        webDriver.get("https://automationexercise.com/");
-//        homePage = new HomePage(webDriver);
-//    }
+    @Given("I am on the home page")
+    public void iAmOnTheHomePage(){
+        webDriver.get("https://automationexercise.com/");
+        homePage = new HomePage(webDriver);
+    }
 
     @When("I click the WOMEN option in the categories menu")
     public void iClickTheWOMENOptionInTheCategoriesMenu() {
