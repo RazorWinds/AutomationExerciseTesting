@@ -1,0 +1,32 @@
+package testframework.stepdefs;
+
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import org.hamcrest.MatcherAssert;
+import testframework.lib.pages.DetailsPage;
+import testframework.lib.pages.ProductsPage;
+
+import static org.hamcrest.Matchers.is;
+
+public class ProductDetailsStepdefs  extends StepDefsSuper{
+    private ProductsPage productsPage;
+    private DetailsPage detailsPage;
+
+    @Given("I am browsing items")
+    public void iAmBrowsingItems() {
+        webDriver.get("https://automationexercise.com/products");
+        productsPage = new ProductsPage(webDriver);
+    }
+
+    @When("I click on view product")
+    public void iClickOn() {
+
+        detailsPage = new DetailsPage(productsPage.clickProduct());
+    }
+
+    @Then("I am taken to the details page")
+    public void iAmTakenToTheDetailsPage() {
+        MatcherAssert.assertThat(webDriver.getCurrentUrl(), is("https://automationexercise.com/product_details/1"));
+    }
+}

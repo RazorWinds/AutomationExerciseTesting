@@ -30,7 +30,7 @@ public class PurchaseStepdefs extends StepDefsSuper {
     private ProductsPage productsPage;
 
     @And("I have 1 item in my basket")
-    public void iHaveItemInMyBasket() throws InterruptedException {
+    public void iHaveItemInMyBasket()  {
         webDriver.get(basketURL);
         BasketPage basketPage = new BasketPage(webDriver);
         basketPage.clearBasket();
