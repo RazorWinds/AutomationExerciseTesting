@@ -27,29 +27,7 @@ public class LoginStepdefs extends StepDefsSuper{
     HomePage homePage;
 
 
-    @BeforeAll
-    public static void beforeAll() throws IOException {
-        service = new ChromeDriverService.Builder()
-                .usingDriverExecutable(new File(DRIVER_LOCATION))
-                .usingAnyFreePort()
-                .build();
-        service.start();
-    }
 
-    @Before
-    public void setup() {
-        webDriver = new RemoteWebDriver(service.getUrl(), getChromeOptions());
-    }
-
-    @After
-    public void afterEach() {
-        webDriver.quit();
-    }
-
-    @AfterAll
-    public static void afterAll() {
-        service.stop();
-    }
 
     @Given("I am on the login signup page of Automation Exercises")
     public void iAmOnTheLoginSignupPageOfAutomationExercises() {
@@ -103,7 +81,6 @@ public class LoginStepdefs extends StepDefsSuper{
     public void iAmLoggedIntoAutomationExercises() {
         webDriver.get("https://automationexercise.com/login");
         loginPage = new LoginPage(webDriver);
-        webDriver.findElement(By.className("fc-button-label")).click();
         loginPage.setWorkingEmail("gtb51@microeconomicstextbook.com");
         loginPage.setWorkingPassword("test");
         loginPage.enterLoginDetails();
