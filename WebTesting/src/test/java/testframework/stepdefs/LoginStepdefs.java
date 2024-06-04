@@ -1,22 +1,23 @@
 package testframework.stepdefs;
 
-import io.cucumber.java.After;
-import io.cucumber.java.AfterAll;
-import io.cucumber.java.Before;
-import io.cucumber.java.BeforeAll;
+import io.cucumber.java.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.hamcrest.MatcherAssert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import testframework.lib.pages.HomePage;
 import testframework.lib.pages.LoginPage;
+import testframework.lib.pages.SignUpPage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
@@ -25,6 +26,7 @@ public class LoginStepdefs extends StepDefsSuper{
 
     LoginPage loginPage;
     HomePage homePage;
+    SignUpPage signUpPage;
 
 
     @BeforeAll
@@ -39,6 +41,20 @@ public class LoginStepdefs extends StepDefsSuper{
     @Before
     public void setup() {
         webDriver = new RemoteWebDriver(service.getUrl(), getChromeOptions());
+    }
+
+    @BeforeStep
+    public void closePopups(){
+        //consent to cookies
+        List<WebElement> consentButton = new ArrayList<>();
+        if (!(consentButton = webDriver.findElements(By.className("fc-button-label"))).isEmpty()){
+            consentButton.get(0).click();
+        }
+
+        //close ads
+        if (webDriver.getCurrentUrl().contains("google"))
+            webDriver.findElement(By.id("dismiss-button")).click();
+
     }
 
     @After
@@ -66,7 +82,7 @@ public class LoginStepdefs extends StepDefsSuper{
 
     @When("I input my details into the fields")
     public void iInputMyDetailsIntoTheFields() {
-        webDriver.findElement(By.className("fc-button-label")).click();
+
         loginPage.enterLoginDetails();
 
     }
@@ -87,7 +103,7 @@ public class LoginStepdefs extends StepDefsSuper{
 
     @When("I input incorrect details into the fields")
     public void iInputIncorrectDetailsIntoTheFields()  {
-        webDriver.findElement(By.className("fc-button-label")).click();
+
         loginPage.setWorkingEmail("gtb51@microeconomicstextbook.com");
         loginPage.setWorkingPassword("Wrong test");
         loginPage.enterLoginDetails();
@@ -103,7 +119,7 @@ public class LoginStepdefs extends StepDefsSuper{
     public void iAmLoggedIntoAutomationExercises() {
         webDriver.get("https://automationexercise.com/login");
         loginPage = new LoginPage(webDriver);
-        webDriver.findElement(By.className("fc-button-label")).click();
+        loginPage.handleConsentPopup();
         loginPage.setWorkingEmail("gtb51@microeconomicstextbook.com");
         loginPage.setWorkingPassword("test");
         loginPage.enterLoginDetails();
@@ -111,8 +127,8 @@ public class LoginStepdefs extends StepDefsSuper{
     }
 
     @When("I press the log out button")
-    public void iPressTheLogOutButton() throws InterruptedException {
-        Thread.sleep(5000);
+    public void iPressTheLogOutButton() {
+
         loginPage = homePage.clickLogout();
     }
 
@@ -120,4 +136,38 @@ public class LoginStepdefs extends StepDefsSuper{
     public void iWillBeLoggedOut() {
         MatcherAssert.assertThat(webDriver.getCurrentUrl(), containsString("login"));
     }
+
+    @When("I Input my name and email and press signup")
+    public void iInputMyNameAndEmailAndPressSignup() {
+        loginPage.setWorkingName("Conner");
+        loginPage.setWorkingEmail("qtb51@microeconomicstextbook.com");
+        signUpPage = loginPage.enterSignUpDetails();
+
+    }
+
+    @And("I input my address on the signup page")
+    public void iInputMyAddressOnTheSignupPage() {
+        signUpPage.setPassword("Test");
+        signUpPage.setFirstName("Conner");
+        signUpPage.setLastName("Sparta");
+        signUpPage.setAddress("24 main street");
+        signUpPage.setState("Northamptonshire");
+        signUpPage.setCity("Northampton");
+        signUpPage.setZipCode("NN5 3TR");
+        signUpPage.setMobileNumber("01604208164");
+        signUpPage.enterDetails();
+
+    }
+
+    @And("I press create account")
+    public void iPressCreateAccount() {
+        signUpPage.submitDetails();
+    }
+
+    @Then("My account will be created")
+    public void myAccountWillBeCreated() {
+        MatcherAssert.assertThat(webDriver.getCurrentUrl(), containsString("account_created"));
+    }
+
+
 }
