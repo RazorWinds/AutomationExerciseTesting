@@ -47,4 +47,5 @@ public class LoginPage extends BasePage{
     public boolean checkErrorMsg(){
         return webDriver.findElement(loginErrorMsg).getText().equals("Your email or password is incorrect!");
     }
+
 }

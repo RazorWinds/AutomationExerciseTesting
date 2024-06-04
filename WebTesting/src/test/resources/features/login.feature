@@ -17,3 +17,9 @@ Feature: Login
     Given I am logged into Automation Exercises
     When I press the log out button
     Then I will be logged out
+
+  Scenario: As a User I want to be able to create an account so that I can make purchases
+    Given I am on the login signup page of Automation Exercises
+    When I Input my name and email and press signup
+    And I input my address on the signup page
+    Then My account will be created

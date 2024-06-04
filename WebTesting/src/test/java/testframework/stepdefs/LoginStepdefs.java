@@ -120,4 +120,16 @@ public class LoginStepdefs extends StepDefsSuper{
     public void iWillBeLoggedOut() {
         MatcherAssert.assertThat(webDriver.getCurrentUrl(), containsString("login"));
     }
+
+    @When("I Input my name and email and press signup")
+    public void iInputMyNameAndEmailAndPressSignup() {
+    }
+
+    @And("I input my address on the signup page")
+    public void iInputMyAddressOnTheSignupPage() {
+    }
+
+    @Then("My account will be created")
+    public void myAccountWillBeCreated() {
+    }
 }
