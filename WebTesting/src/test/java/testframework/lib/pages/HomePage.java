@@ -36,4 +36,9 @@ public class HomePage extends BasePage {
         webDriver.findElement(contactLink).click();
         return new ContactPage(webDriver);
     }
+
+    public LoginPage clickLogout(){
+        webDriver.findElement(By.linkText("Logout")).click();
+        return new LoginPage(webDriver);
+    }
 }

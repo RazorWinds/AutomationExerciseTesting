@@ -1,4 +1,4 @@
-Feature: As a customer, I want to be able to navigate to certain product categories so that I can find a specific kind of product.
+Feature: Navigation
   Scenario: Navigate to a product category
     Given I'm on the home page
     When I click on a product category "WOMEN" link, and then the "DRESS" link in the navigation menu
