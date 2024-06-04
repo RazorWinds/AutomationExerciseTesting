@@ -45,4 +45,9 @@ public class ProductsPage extends BasePage {
         searchField.sendKeys(searchTerm);
         webDriver.findElement(By.id("submit_search")).click();
     }
+
+    public WebDriver clickProduct(){
+        webDriver.findElement(firstProduct).click();
+        return webDriver;
+    }
 }
