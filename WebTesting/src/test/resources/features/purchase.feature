@@ -1,4 +1,4 @@
-Feature: As a customer I should be able to checkout with valid basket and card details so that I can place orders.
+Feature: Purchasing
 
   Scenario: As a customer, I should be able to checkout with 1 item in my basket, so that I can buy a single item if I want to.
     Given I am logged into Automation Exercises
@@ -8,7 +8,7 @@ Feature: As a customer I should be able to checkout with valid basket and card d
     Then I should be redirected to the checkout page where I can see product details.
 
 
-  Scenario: Purchasing
+  Scenario: As a customer, I should not be able to checkout with no items in my basket.
     Given I have no items in my basket
     When I am on the basket page
     Then The checkout button should not be displayed.
