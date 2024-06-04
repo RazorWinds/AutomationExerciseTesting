@@ -78,7 +78,7 @@ public class FilterStepDefs extends StepDefsSuper{
     @Given("I am on the home page")
     public void iAmOnTheHomePage(){
         webDriver.get("https://automationexercise.com/");
-        homePage = new HomePage(webDriver);
+        HomePage homePage = new HomePage(webDriver);
     }
 
     @When("I click the WOMEN option in the categories menu")

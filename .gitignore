@@ -2,6 +2,10 @@
 *.exe
 *.chromedriver
 
+# Ignore chromedriver executable
+chromedriver
+drivers/chromedriver
+
 # Compiled class files
 *.class
 
