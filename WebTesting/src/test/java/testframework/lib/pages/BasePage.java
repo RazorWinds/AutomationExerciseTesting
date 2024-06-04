@@ -1,6 +1,8 @@
 package testframework.lib.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -25,6 +27,13 @@ public abstract class BasePage {
 
     public String getTitle() {
         return webDriver.getTitle();
+    }
+
+    public void handleConsentPopup() {
+        WebElement consentBtn = webDriver.findElement(By.className("fc-button-label"));
+        if (consentBtn.isDisplayed()) {
+            consentBtn.click();
+        }
     }
 
     protected abstract boolean isCorrectPage();
