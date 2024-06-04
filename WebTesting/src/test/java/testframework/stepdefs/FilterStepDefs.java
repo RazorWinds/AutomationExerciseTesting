@@ -26,30 +26,6 @@ public class FilterStepDefs extends StepDefsSuper{
     HomePage homePage;
     WebDriverWait webDriverWait;
 
-    @BeforeStep
-    public void closePopups(){
-        //consent to cookies
-        List<WebElement> consentButton = new ArrayList<>();
-        if (!(consentButton = webDriver.findElements(By.className("fc-button-label"))).isEmpty()){
-            consentButton.get(0).click();
-        }
-
-        //close ads
-        if (webDriver.getCurrentUrl().contains("google"))
-            webDriver.findElement(By.id("dismiss-button")).click();
-
-        //An attempt to close popup ads
-//        if (webDriver.getCurrentUrl().contains("google")) {
-//            try {
-//                webDriver.switchTo().frame(2);
-//                webDriverWait.until(driver -> !driver.findElements(By.id("dismiss-button")).isEmpty());
-//                webDriver.findElement(By.id("dismiss-button")).click();
-//            } catch (Exception e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
-    }
-
     @Given("I am on the home page")
     public void iAmOnTheHomePage(){
         webDriver.get("https://automationexercise.com/");
