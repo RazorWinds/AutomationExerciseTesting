@@ -24,8 +24,8 @@ The definition of done outlines that all user stories should be written with acc
 
 As such, the test metrics we used were:
 
-- # of user stories manually tested
-- # of user story tests automated
-- # of defects found
+- number of user stories manually tested
+- number of user story tests automated
+- number of defects found
 - detail of defect reports
-- # of tests per user story
+- number of tests per user story
