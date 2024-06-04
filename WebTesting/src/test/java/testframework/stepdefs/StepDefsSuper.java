@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public abstract class StepDefsSuper {
     protected static ChromeDriverService service;
-    protected static final String DRIVER_LOCATION = "src/test/resources/chromedriver";
+    protected static final String DRIVER_LOCATION = "src/test/resources/chromedriver.exe";
     protected static WebDriver webDriver;
 
     protected static final String cartURL = "https://automationexercise.com/view_cart";
