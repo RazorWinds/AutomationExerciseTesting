@@ -1,6 +1,7 @@
 Feature: As a customer I should be able to checkout with valid basket and card details so that I can place orders.
   Scenario: As a customer, I should be able to checkout with 1 item in my basket, so that I can buy a single item if I want to.
-    Given I have 1 item in my basket
+    Given I am logged into Automation Exercises
+      And I have 1 item in my basket
       And I am on the basket page
     When I click the Proceed to Checkout button
     Then I should be redirected to the checkout page where I can see product details.

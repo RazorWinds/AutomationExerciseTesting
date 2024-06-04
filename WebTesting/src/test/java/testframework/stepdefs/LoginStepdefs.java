@@ -29,43 +29,7 @@ public class LoginStepdefs extends StepDefsSuper{
     SignUpPage signUpPage;
 
 
-    @BeforeAll
-    public static void beforeAll() throws IOException {
-        service = new ChromeDriverService.Builder()
-                .usingDriverExecutable(new File(DRIVER_LOCATION))
-                .usingAnyFreePort()
-                .build();
-        service.start();
-    }
 
-    @Before
-    public void setup() {
-        webDriver = new RemoteWebDriver(service.getUrl(), getChromeOptions());
-    }
-
-    @BeforeStep
-    public void closePopups(){
-        //consent to cookies
-        List<WebElement> consentButton = new ArrayList<>();
-        if (!(consentButton = webDriver.findElements(By.className("fc-button-label"))).isEmpty()){
-            consentButton.get(0).click();
-        }
-
-        //close ads
-        if (webDriver.getCurrentUrl().contains("google"))
-            webDriver.findElement(By.id("dismiss-button")).click();
-
-    }
-
-    @After
-    public void afterEach() {
-        webDriver.quit();
-    }
-
-    @AfterAll
-    public static void afterAll() {
-        service.stop();
-    }
 
     @Given("I am on the login signup page of Automation Exercises")
     public void iAmOnTheLoginSignupPageOfAutomationExercises() {
@@ -119,7 +83,6 @@ public class LoginStepdefs extends StepDefsSuper{
     public void iAmLoggedIntoAutomationExercises() {
         webDriver.get("https://automationexercise.com/login");
         loginPage = new LoginPage(webDriver);
-        loginPage.handleConsentPopup();
         loginPage.setWorkingEmail("gtb51@microeconomicstextbook.com");
         loginPage.setWorkingPassword("test");
         loginPage.enterLoginDetails();
