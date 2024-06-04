@@ -52,7 +52,7 @@ public class PurchaseStepdefs extends StepDefsSuper {
 
     @Then("I should be redirected to the checkout page where I can see product details.")
     public void iShouldBeRedirectedToTheCheckoutPageWhereICanSeeProductDetails() {
-//        assertThat(webDriver.findElement(By.cssSelector(".step-one:nth-child(4) > .heading")).getText(), is("Review Your Order"));
+        assertThat(webDriver.findElement(By.cssSelector(".step-one:nth-child(4) > .heading")).getText(), is("Review Your Order"));
     }
 
 
