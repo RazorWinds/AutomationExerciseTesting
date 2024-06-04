@@ -13,6 +13,7 @@ public class LoginPage extends BasePage{
     private By registerButton = By.cssSelector(".btn:nth-child(5)");
     private String workingEmail;
     private String workingPassword;
+    private String workingName;
     private By loginErrorMsg = By.cssSelector(".login-form p");
 
     public LoginPage(WebDriver webDriver) {
@@ -29,6 +30,14 @@ public class LoginPage extends BasePage{
         webDriver.findElement(loginPasswordField).sendKeys(workingPassword);
     }
 
+    public SignUpPage enterSignUpDetails(){
+        webDriver.findElement(registerEmailAddressField).sendKeys(workingEmail);
+        webDriver.findElement(registerNameField).sendKeys(workingName);
+        webDriver.findElement(registerButton).click();
+
+        return new SignUpPage(webDriver);
+    }
+
     public WebDriver clickLogin(){
         webDriver.findElement(loginButton).click();
         return (webDriver);
@@ -42,6 +51,10 @@ public class LoginPage extends BasePage{
 
     public void setWorkingPassword(String workingPassword) {
         this.workingPassword = workingPassword;
+    }
+
+    public void setWorkingName(String workingName) {
+        this.workingName = workingName;
     }
 
     public boolean checkErrorMsg(){

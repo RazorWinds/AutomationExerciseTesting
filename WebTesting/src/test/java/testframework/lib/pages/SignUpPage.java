@@ -2,6 +2,7 @@ package testframework.lib.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class SignUpPage extends BasePage{
     private String password;
@@ -20,6 +21,7 @@ public class SignUpPage extends BasePage{
     private By cityField = By.id("city");
     private By zipCodeField = By.id("zipcode");
     private By numberField = By.id("mobile_number");
+    private By submitButton = By.cssSelector(".btn:nth-child(22)");
 
 
     public SignUpPage(WebDriver webDriver) {
@@ -29,6 +31,22 @@ public class SignUpPage extends BasePage{
     @Override
     protected boolean isCorrectPage() {
         return webDriver.getCurrentUrl().contains("signup");
+    }
+
+    public void enterDetails(){
+        webDriver.findElement(passwordField).sendKeys(password);
+        webDriver.findElement(firstNameField).sendKeys(firstName);
+        webDriver.findElement(lastNameField).sendKeys(lastName);
+        webDriver.findElement(addressField).sendKeys(address);
+        webDriver.findElement(stateField).sendKeys(state);
+        webDriver.findElement(cityField).sendKeys(city);
+        webDriver.findElement(zipCodeField).sendKeys(zipCode);
+        webDriver.findElement(numberField).sendKeys(mobileNumber);
+    }
+
+    public void submitDetails(){
+        wait.until(ExpectedConditions.elementToBeClickable(submitButton));
+        webDriver.findElement(submitButton).click();
     }
 
     public void setPassword(String password) {

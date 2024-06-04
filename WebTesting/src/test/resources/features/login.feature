@@ -22,4 +22,5 @@ Feature: Login
     Given I am on the login signup page of Automation Exercises
     When I Input my name and email and press signup
     And I input my address on the signup page
+    And I press create account
     Then My account will be created
