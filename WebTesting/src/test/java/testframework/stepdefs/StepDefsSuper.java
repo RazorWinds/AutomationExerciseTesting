@@ -18,6 +18,9 @@ public abstract class StepDefsSuper {
     protected static final String DRIVER_LOCATION = "src/test/resources/chromedriver.exe";
     protected WebDriver webDriver;
 
+    protected static final String basketURL = "https://automationexercise.com/view_cart";
+    protected static final String productsURL = "https://automationexercise.com/products";
+
     public static ChromeOptions getChromeOptions() {
         ChromeOptions chromeOptions = new ChromeOptions();
         //chromeOptions.addArguments("headless");
