@@ -1,14 +1,14 @@
 package testframework.stepdefs;
 
-import io.cucumber.java.After;
-import io.cucumber.java.AfterAll;
-import io.cucumber.java.Before;
-import io.cucumber.java.BeforeAll;
+import io.cucumber.java.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class StepDefHooks extends StepDefsSuper{
 
@@ -35,6 +35,30 @@ public class StepDefHooks extends StepDefsSuper{
     @AfterAll
     public static void afterAll() {
         service.stop();
+    }
+
+
+    @BeforeStep
+    public void closePopups(){
+
+        //close ads
+        if (webDriver.getCurrentUrl().contains("google")) {
+            List<WebElement> elements = webDriver.findElements(By.id("dismiss-button"));
+            elements.forEach(WebElement::click);
+
+        }
+
+
+        //An attempt to close popup ads
+//        if (webDriver.getCurrentUrl().contains("google")) {
+//            try {
+//                webDriver.switchTo().frame(2);
+//                webDriverWait.until(driver -> !driver.findElements(By.id("dismiss-button")).isEmpty());
+//                webDriver.findElement(By.id("dismiss-button")).click();
+//            } catch (Exception e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
     }
 
 }

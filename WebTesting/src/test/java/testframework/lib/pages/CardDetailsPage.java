@@ -3,6 +3,7 @@ package testframework.lib.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class CardDetailsPage extends BasePage{
 
     @Override
     protected boolean isCorrectPage() {
-        return webDriver.getTitle().equals("Automation Exercise - Checkout");
+        return webDriver.getTitle().equals("Automation Exercise - Payment");
     }
 
     public void clearBasket(){
